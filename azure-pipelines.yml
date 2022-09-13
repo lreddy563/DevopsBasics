@@ -21,10 +21,13 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 - task: CopyFiles@2
+  displayName: 'Copy Files To: $(Build.ArtifactStagingDirectory)'
   inputs:
-    contents: '**/.war'
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: '**/*.war'
     targetFolder: $(Build.ArtifactStagingDirectory)
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish Files From: $(Build.ArtifactStagingDirectory)'
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
     artifactName: MyBuildOutputs
